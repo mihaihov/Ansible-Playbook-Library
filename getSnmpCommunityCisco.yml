@@ -1,0 +1,14 @@
+---
+- name: Get SNMP Community String for SMP v1,v2 and v2c
+  hosts: cisco_gear
+  gather_facts: no
+  tasks:
+    - name: Retrieve SNMP Community String
+      ios_command:
+        commands:
+          - show run | i snmp-server community
+      register: snmpCommunity
+
+    - name: Display SNMP Community String
+      debug:
+        var: snmpCommunity.stdout_lines

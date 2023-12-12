@@ -1,0 +1,15 @@
+---
+- name: Get Cisco Device Information
+  hosts: cisco_gear
+  gather_facts: no
+  tasks:
+    - name: Retrieve Vendor, OS, OSVersion
+      ios_command:
+        commands:
+          - show version
+      register: vendor_os_osversion
+
+
+    - name: Display Information
+      debug:
+        msg: "{{ vendor_os_osversion.stdout_lines[0][0] }}"

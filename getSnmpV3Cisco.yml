@@ -1,0 +1,14 @@
+---
+- name: Get SNMP Configuration from Cisco Gear
+  hosts: cisco_gear
+  gather_facts: no
+  tasks:
+    - name: Retrieve SNMPv3 Configuration
+      ios_command:
+        commands:
+          - show snmp user
+      register: snmpv3_output
+
+    - name: Display Configuration
+      debug:
+        var: snmpv3_output.stdout_lines[0]

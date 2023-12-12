@@ -1,0 +1,15 @@
+---
+- name: Get Cisco Device Information
+  hosts: cisco_gear
+  gather_facts: no
+  tasks:
+    - name: Retrieve Hostname
+      ios_command:
+        commands:
+          - show run | i hostname
+      register: hostname
+
+
+    - name: Display Information
+      debug:
+        msg: "{{ hostname.stdout_lines[0][0] }}"
